@@ -1,0 +1,19 @@
+Package: SCOBI
+Type: Package
+Title: Salmonid Composition Bootstrap Intervals
+Version: 0.1.0
+Date: 05-10-2016
+Author: Mike Ackerman <mike.ackerman@idfg.idaho.gov> and Kirk Steinhorst <42kirk@moscow.com>
+Maintainer: Mike Ackerman <mike.ackerman@idfg.idaho.gov>
+Description: SCOBI is an R package to perform compositional analyses of adult and smolt steelhead and Chinook salmon at Lower Granite Dam.
+License: GPL-2
+LazyData: TRUE
+Imports:
+  Hmisc(>= 3.17.0),
+  stats(>= 3.1.2),
+  plyr(>= 1.8.3),
+  stringr(>= 1.0.0),
+  car(>= 2.0-25)
+Suggests:
+  xlsx(>= 0.5.7)
+RoxygenNote: 5.0.1
