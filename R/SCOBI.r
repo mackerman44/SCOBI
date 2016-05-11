@@ -21,6 +21,7 @@
 #' @export
 #' @return NULL
 
+# Start the SCOBI function
 SCOBI <- function(adultData = NULL, windowData = NULL,
                   Run = "output", RTYPE = "W", Primary = "GenStock", Secondary = NA, SizeCut = 780,
                   alph = 0.1, B = 5000, writeThetas = FALSE, writeOutput = TRUE)
