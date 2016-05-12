@@ -10,7 +10,7 @@
 #' @param Run synopsis of the run being conducted. \code{Run} will be used as the prefix for all of your output files. \code{Run} should generally
 #' contain the spawn year, rear, species, primary, and (if desired) secondary categories. For example, "sy2015wSthdStockSex"
 #' @param RTYPE which rear type (wild [H], hatchery [H], or hatchery unclipped [HNC]) would you like to perform the current analysis on
-#' @param Primary the primary category of interest. i.e., after \code{RTYPE} what category would you like to decompose next?
+#' @param Primary the primary category in the \code{adultData} to be estimated. i.e., after \code{RTYPE} what category would you like to decompose next?
 #' @param Secondary the secondary category of interest. \code{Secondary} may be se to \code{NA} if no secondary decomposition is desired
 #' @param SizeCut if Secondary = "LGDFLmm", what FL would you like to use to separate Sm versus Lg fish. For steelhead, set \code{SizeCut = 780}
 #' (the default) to separate A-run and B-run fish. For Chinook, set \code{SizeCut = 570} to separate Jacks and Adults

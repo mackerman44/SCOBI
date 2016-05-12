@@ -24,10 +24,12 @@
 #'
 #' @description The NEW juvenile companion to SCOBI
 #'
-#' @param smoltData the name of the file containing the smolt biological data
-#' @param Dat the column in smoltData containing the sampling date
-#' @param Rr column heading containing code for rearing type
-#' @param Primary This is the primary classification variable for grouping
+#' @param smoltData the .csv file containing the biological data for the smolts to be analyzed. The file should contain data for all smolts
+#' trapped in a given migratory year and for a given 'species' (sthd, ch0, or ch1). The function \code{lgr2SCRAPI()} can be used to format
+#' raw smolt data exported from the LGTrappingDB to make it ready for the \code{SCRAPI()} function
+#' @param Dat speciy the column in \code{smoltData} that contains the sample date for each smolt
+#' @param Rr specify the column in \code{smoltData} that contains the rear type (W or HNC) for each smolt
+#' @param Primary specify This is the primary classification variable for grouping
 #' @param Secondary Use NA if no secondary composition factor is requested
 #' @param passageData the name of the file containing the smolt passage data
 #' @param strat This is the column name for stratification (original weeks)
