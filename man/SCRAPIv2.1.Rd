@@ -2,7 +2,7 @@
 % Please edit documentation in R/SCRAPIv2_1.r
 \name{SCRAPIv2.1}
 \alias{SCRAPIv2.1}
-\title{SCRAPI v2.1}
+\title{SCRAPI v2.1 The smolt companion to SCOBI}
 \usage{
 SCRAPIv2.1(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear",
   Primary = "GenStock", Secondary = NA, passageData = NULL,
@@ -12,44 +12,50 @@ SCRAPIv2.1(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear",
   alph = 0.1, B = 5000, dateFormat = "\%m/\%d/\%Y")
 }
 \arguments{
-\item{smoltData}{the name of the file containing the smolt biological data}
+\item{smoltData}{the .csv file containing the biological data for the smolts to be analyzed. The file should contain data for all smolts
+trapped in a given migratory year and for a given 'species' (sthd, ch0, or ch1). The function \code{lgr2SCRAPI()} can be used to format
+raw smolt data exported from the LGTrappingDB to make it ready for the \code{SCRAPI()} function}
 
-\item{Dat}{the column in smoltData containing the sampling date}
+\item{Dat}{speciy the column in \code{smoltData} that contains the sample date for each smolt}
 
-\item{Rr}{column heading containing code for rearing type}
+\item{Rr}{specify the column in \code{smoltData} that contains the rear type (W or HNC) for each smolt}
 
-\item{Primary}{This is the primary classification variable for grouping}
+\item{Primary}{specify the primary category in \code{smoltData} to be estimated. i.e., after \code{RTYPE} what category would you like to decompose?}
 
-\item{Secondary}{Use NA if no secondary composition factor is requested}
+\item{Secondary}{the secondary category in the \code{smoltData} to be estimated. i.e. after \code{Primary} what category would you like to
+decompose next? Use \code{Secondary = NA} if no secondary decomposition is desired}
 
-\item{passageData}{the name of the file containing the smolt passage data}
+\item{passageData}{the .csv file containg the smolt passage data. The file should contain the sampling date for each day of the season and
+for each date the 1) calendar week, 2) sampling rate, 3) count of smolts in the trap, and 4) the juvenile bypass system guidance efficiency. \code{passageData}
+should also contain the collapsing scheme to be used.}
 
-\item{strat}{This is the column name for stratification (original weeks)}
+\item{strat}{specify the column in \code{passageData} that contains the calendar weeks}
 
-\item{dat}{Column heading containing sampling date}
+\item{dat}{specify the column in \code{passageData} that contains the sampling dates}
 
-\item{tally}{Column heading containing counts at the dam}
+\item{tally}{specify the column in \code{passageData} containg the daily count of smolts in the trap}
 
-\item{samrate}{Column heading containing trap sampling rate}
+\item{samrate}{specify the column in \code{passageData} containing the daily trap sample rate}
 
-\item{guidance}{Column heading containing value of guidance efficiency}
+\item{guidance}{specify the column in \code{passageData} containing the daily guidance efficiency estimates}
 
-\item{collaps}{column containing the collapsing scheme}
+\item{collaps}{specify the column in \code{passageData} containing the collapsing scheme to be used}
 
 \item{Run}{synopsis of the run being conducted. This will be used as the prefix for all of your output files}
 
-\item{RTYPE}{which rear type (wild [H], hatchery [H], or hatchery unclipped [HNC]) would you like to perform analysis on}
+\item{RTYPE}{which rear type (wild [H] or hatchery unclipped [HNC]) would you like to perform analysis on}
 
 \item{REARSTRAT}{would you like pWild calculated on a time-stratified basis (TRUE) or across the entire emigration (FALSE)}
 
-\item{alph}{the desired alpha level to calculate confidence intervals}
+\item{alph}{the alpha used for confidence intervals (e.g., \code{alph} = 0.10 results in 90 percent CIs)}
 
 \item{B}{the desired number of bootstraps}
 
-\item{dateFormat}{What format are the dates in your fish and passage data?}
+\item{dateFormat}{What format are the dates in your fish and passage data? The default format used in the LGTrappingDB
+is 01/01/1900}
 }
 \description{
-The NEW juvenile companion to SCOBI
+Perform compositional analyses of smolts at Lower Granite Dam.
 }
 \author{
 Kirk Steinhorst and Mike Ackerman

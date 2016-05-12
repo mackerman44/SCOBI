@@ -1,4 +1,4 @@
-#' @title lgr2SCRAPI
+#' @title lgr2SCRAPI: Format smolt data from LGTrappingDB for SCOBI
 #'
 #' @description lgr2SCRAPI() is a function to convert raw data exported or 'dumped' out of the LGTrappingDB to a format that is ready
 #' to be analyzed by the \link{SCRAPI}() function. It is to be used on one species/migratory year combination (e.g., MY2015 steelhead) at

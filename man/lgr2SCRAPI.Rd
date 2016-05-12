@@ -2,7 +2,7 @@
 % Please edit documentation in R/lgr2SCRAPI.r
 \name{lgr2SCRAPI}
 \alias{lgr2SCRAPI}
-\title{lgr2SCRAPI}
+\title{lgr2SCRAPI: Format smolt data from LGTrappingDB for SCOBI}
 \usage{
 lgr2SCRAPI(input = NULL, species = "chnk", exportFile = NULL)
 }

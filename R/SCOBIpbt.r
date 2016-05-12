@@ -1,6 +1,6 @@
-#' @title SCOBIpbt
+#' @title SCOBI: Salmonid COmposition Boostrap Intervals
 #'
-#' @description Salmonid Composition Bootstrap Intervals
+#' @description Perform compositional analyses of adults at Lower Granite Dam.
 #'
 #' @param adultData the .csv file containing the biological data for the adults to be analyzed. The file should contain data for all fish trapped in
 #' a given spawn year and for a given species. The function \code{lgr2SCOBI()} can be used to format data exported from the LGTrappingDB to make it
@@ -29,6 +29,8 @@
 #'
 #' @seealso \code{\link[MCPAN]{SCSrank}}
 #' @author Kirk Steinhorst and Mike Ackerman
+#' @references Steinhorst, K., T. Copeland, M. W. Ackerman, W. C. Schrader, E. C. Anderson (In review) Estimates and Confidence Intervals for Run Composition
+#' of Returning Salmonids. Fishery Bulletin.
 #'
 #' @importFrom Hmisc mApply
 #' @export

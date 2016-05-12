@@ -2,7 +2,7 @@
 % Please edit documentation in R/lgr2SCOBI.r
 \name{lgr2SCOBI}
 \alias{lgr2SCOBI}
-\title{lgr2SCOBI}
+\title{lgr2SCOBI: Format adult data from LGTrappingDB for SCOBI}
 \usage{
 lgr2SCOBI(input = NULL, species = "chnk", exportFile = NULL)
 }

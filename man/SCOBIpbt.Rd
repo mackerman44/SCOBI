@@ -2,7 +2,7 @@
 % Please edit documentation in R/SCOBIpbt.r
 \name{SCOBIpbt}
 \alias{SCOBIpbt}
-\title{SCOBIpbt}
+\title{SCOBI: Salmonid COmposition Boostrap Intervals}
 \usage{
 SCOBIpbt(adultData = NULL, windowData = NULL, Run = "output",
   RTYPE = "W", Primary = "GenStock", Secondary = NA, SizeCut = 780,
@@ -22,9 +22,10 @@ contain the spawn year, rear, species, primary, and (if desired) secondary categ
 
 \item{RTYPE}{which rear type (wild [H], hatchery [H], or hatchery unclipped [HNC]) would you like to perform the current analysis on}
 
-\item{Primary}{the primary category of interest. i.e., after \code{RTYPE} what category would you like to decompose next?}
+\item{Primary}{the primary category in the \code{adultData} to be estimated. i.e., after \code{RTYPE} what category would you like to decompose next?}
 
-\item{Secondary}{the secondary category of interest. \code{Secondary} may be se to \code{NA} if no secondary decomposition is desired}
+\item{Secondary}{the secondary category in the \code{adultData} to be estimated. i.e. after \code{Primary} what category would you like to
+decompose next? Use \code{Secondary = NA} if no secondary decomposition is desired}
 
 \item{SizeCut}{if Secondary = "LGDFLmm", what FL would you like to use to separate Sm versus Lg fish. For steelhead, set \code{SizeCut = 780}
 (the default) to separate A-run and B-run fish. For Chinook, set \code{SizeCut = 570} to separate Jacks and Adults}
@@ -47,10 +48,14 @@ the \code{adultData}. the \code{pbtRates} should contain 2 columns; the first co
 to the H stocks in the \code{adultData}, the second column should contain the PBT tag rate for each H stock}
 }
 \description{
-Salmonid Composition Bootstrap Intervals
+Perform compositional analyses of adults at Lower Granite Dam.
 }
 \author{
 Kirk Steinhorst and Mike Ackerman
+}
+\references{
+Steinhorst, K., T. Copeland, M. W. Ackerman, W. C. Schrader, E. C. Anderson (In review) Estimates and Confidence Intervals for Run Composition
+of Returning Salmonids. Fishery Bulletin.
 }
 \seealso{
 \code{\link[MCPAN]{SCSrank}}

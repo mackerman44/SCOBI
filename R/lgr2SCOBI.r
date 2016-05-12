@@ -1,4 +1,4 @@
-#' @title lgr2SCOBI
+#' @title lgr2SCOBI: Format adult data from LGTrappingDB for SCOBI
 #'
 #' @description lgr2SCOBI() is a function to convert raw data exported or 'dumped' out of the LGTrappingDB to a format that is ready
 #' to be analyzed by the \link{SCOBI}() function. It is to be used on one species/spawn year combination (e.g., SY2015 steelhead) at a time. It will
