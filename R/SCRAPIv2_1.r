@@ -1,3 +1,35 @@
+#' @title SCRAPI v2.1
+#'
+#' @description The NEW juvenile companion to SCOBI
+#'
+#' @param smoltData the .csv file containing the biological data for the smolts to be analyzed. The file should contain data for all smolts
+#' trapped in a given migratory year and for a given 'species' (sthd, ch0, or ch1). The function \code{lgr2SCRAPI()} can be used to format
+#' raw smolt data exported from the LGTrappingDB to make it ready for the \code{SCRAPI()} function
+#' @param Dat speciy the column in \code{smoltData} that contains the sample date for each smolt
+#' @param Rr specify the column in \code{smoltData} that contains the rear type (W or HNC) for each smolt
+#' @param Primary specify the primary category in \code{smoltData} to be estimated. i.e., after \code{RTYPE} what category would you like to decompose?
+#' @param Secondary the secondary category in the \code{smoltData} to be estimated. i.e. after \code{Primary} what category would you like to
+#' decompose next? Use \code{Secondary = NA} if no secondary decomposition is desired
+#' @param passageData  the .csv file containg the smolt passage data.the name of the file containing the smolt passage data
+#' @param strat This is the column name for stratification (original weeks)
+#' @param dat Column heading containing sampling date
+#' @param tally Column heading containing counts at the dam
+#' @param samrate Column heading containing trap sampling rate
+#' @param guidance Column heading containing value of guidance efficiency
+#' @param collaps column containing the collapsing scheme
+#' @param Run synopsis of the run being conducted. This will be used as the prefix for all of your output files
+#' @param RTYPE which rear type (wild [H], hatchery [H], or hatchery unclipped [HNC]) would you like to perform analysis on
+#' @param REARSTRAT would you like pWild calculated on a time-stratified basis (TRUE) or across the entire emigration (FALSE)
+#' @param alph the desired alpha level to calculate confidence intervals
+#' @param B the desired number of bootstraps
+#' @param dateFormat What format are the dates in your fish and passage data?
+#'
+#' @author Kirk Steinhorst and Mike Ackerman
+#'
+#' @import stats plyr
+#' @export
+#' @return NULL
+
 #            SCRAPI 2.1
 # This R program calculates bootstrap confidence intervals for total wild (or hatchery)
 # and wild (or hatchery) by group (of your choice) for smolts arriving at Lower Granite dam.
@@ -19,37 +51,6 @@
 # Version 2.1 weights rearing status (HNC and W) by true sampling rate
 #
 # Copyright Kirk Steinhorst May 9, 2016
-
-#' @title SCRAPI v2.1
-#'
-#' @description The NEW juvenile companion to SCOBI
-#'
-#' @param smoltData the .csv file containing the biological data for the smolts to be analyzed. The file should contain data for all smolts
-#' trapped in a given migratory year and for a given 'species' (sthd, ch0, or ch1). The function \code{lgr2SCRAPI()} can be used to format
-#' raw smolt data exported from the LGTrappingDB to make it ready for the \code{SCRAPI()} function
-#' @param Dat speciy the column in \code{smoltData} that contains the sample date for each smolt
-#' @param Rr specify the column in \code{smoltData} that contains the rear type (W or HNC) for each smolt
-#' @param Primary specify This is the primary classification variable for grouping
-#' @param Secondary Use NA if no secondary composition factor is requested
-#' @param passageData the name of the file containing the smolt passage data
-#' @param strat This is the column name for stratification (original weeks)
-#' @param dat Column heading containing sampling date
-#' @param tally Column heading containing counts at the dam
-#' @param samrate Column heading containing trap sampling rate
-#' @param guidance Column heading containing value of guidance efficiency
-#' @param collaps column containing the collapsing scheme
-#' @param Run synopsis of the run being conducted. This will be used as the prefix for all of your output files
-#' @param RTYPE which rear type (wild [H], hatchery [H], or hatchery unclipped [HNC]) would you like to perform analysis on
-#' @param REARSTRAT would you like pWild calculated on a time-stratified basis (TRUE) or across the entire emigration (FALSE)
-#' @param alph the desired alpha level to calculate confidence intervals
-#' @param B the desired number of bootstraps
-#' @param dateFormat What format are the dates in your fish and passage data?
-#'
-#' @author Kirk Steinhorst and Mike Ackerman
-#'
-#' @import stats plyr
-#' @export
-#' @return NULL
 
 SCRAPIv2.1 <- function(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear", Primary = "GenStock", Secondary = NA, passageData = NULL,
                        strat = "Week", dat = "SampleEndDate", tally = "SampleCount", samrate = "SampleRate", guidance = "GuidanceEfficiency",
