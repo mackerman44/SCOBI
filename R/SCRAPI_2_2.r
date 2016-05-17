@@ -1,4 +1,4 @@
-#' @title SCRAPI v2.1 The smolt companion to SCOBI
+#' @title SCRAPI v2.2 The smolt companion to SCOBI
 #'
 #' @description Perform compositional analyses of smolts at Lower Granite Dam.
 #'
@@ -33,7 +33,7 @@
 #' @export
 #' @return NULL
 
-#            SCRAPI 2.1
+#            SCRAPI 2.2
 # This R program calculates bootstrap confidence intervals for total wild (or hatchery)
 # and wild (or hatchery) by group (of your choice) for smolts arriving at Lower Granite dam.
 # Groups can be made up of a single catetgorical variable (sex, age, genstock, or size) or
@@ -54,9 +54,9 @@
 # Version 2.1 weights rearing status (HNC and W) by true sampling rate
 # Version 2.2 cleans up the code
 #
-# Copyright Kirk Steinhorst May 9, 2016
+# Copyright Kirk Steinhorst May 12, 2016
 
-SCRAPIv2.1 <- function(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear", Primary = "GenStock", Secondary = NA, passageData = NULL,
+SCRAPIv2.2 <- function(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear", Primary = "GenStock", Secondary = NA, passageData = NULL,
                        strat = "Week", dat = "SampleEndDate", tally = "SampleCount", samrate = "SampleRate", guidance = "GuidanceEfficiency",
                        collaps = "Collapse", Run = "output", RTYPE = "W", REARSTRAT = TRUE, alph = 0.1, B = 5000, dateFormat = "%m/%d/%Y")
 {
@@ -76,9 +76,9 @@ SCRAPIv2.1 <- function(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear", Pr
   # Function to compute the overall average composition for SECONDARY at each level of PRIMARY
   getAvgProp <- function(Fh){
     Fh <- droplevels(Fh[which(Fh$SGrp!="NA"),])
-    Freqs <- mApply(1/Fh$SR,list(factor(Fh$PGrp,levels=Pgrps),factor(Fh$SGrp,levels=Sgrps)),sum)
+    Freqs <- mApply(1/Fh$SR,list(factor(Fh$SGrp,levels=Sgrps),factor(Fh$PGrp,levels=Pgrps)),sum) # Pgrps (rows) x Sgrps (cols)
     Freqs[is.na(Freqs)] <- 0
-    AP <- prop.table(Freqs,margin=2)
+    AP <- prop.table(Freqs,margin=1) #Proportions by row (Pgrps)
     return( AP )
   }
 
@@ -100,12 +100,14 @@ SCRAPIv2.1 <- function(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear", Pr
         ColTotals   <- apply(HNCWstrat,1,sum)
         Proportions <- ColTotals/sum(ColTotals) # This has pooled values for proportion HNC and W
         PWild <- Proportions[2]
-      } else { PWild  <- HNCWprop[2,] }
+      } else  PWild  <- HNCWprop[2,]
     }
     WildStrata <- PWild*bystrata  # This is the estimate of wild smolts by strata (or pooled)
-    # bystrata <- pWild*bystrata # This adjusts the (statistical) weekly passage to just wild smolts
-    # I changed to WildStrata from bystrata so as not to use bystrata in two ways
-    total <- sum(WildStrata)
+    if( assignflg == TRUE ) {
+      assign("ProWild", PWild, envir = .GlobalEnv)
+      assign("WildCollaps", WildStrata, envir = .GlobalEnv)
+    }
+    TotalWild <- sum(WildStrata)
     Primarystrata <- mApply(1/Fish$SR,list(Fish$Strat,Fish$PGrp),sum)
     Primarystrata[is.na(Primarystrata)] <- 0
     Primaryproportions <- prop.table(Primarystrata,margin=2)
@@ -114,17 +116,16 @@ SCRAPIv2.1 <- function(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear", Pr
       SecondAbund <- array(numeric(nPgrps*nSgrps*nstrats),dim=c(nPgrps,nSgrps,nstrats))
       # Delete fish with NA for SECONDARY categorical variable
       Fish <- droplevels(Fish[which(Fish$SGrp!="NA"),])
-      nsFish <<- nrow(Fish)
+      if( assignflg == TRUE ) assign("nsFish", nrow(Fish), envir = .GlobalEnv)
       Freqs <- mApply(1/Fish$SR,list(factor(Fish$PGrp,levels=Pgrps),factor(Fish$SGrp,levels=Sgrps),factor(Fish$Strat,levels=strats)),sum)
       Freqs[is.na(Freqs)] <- 0
       Props <- prop.table(Freqs,margin=c(1,3))
       # Check to see if the proportions for the Secondary category are NaNs because the corresponding Freqs are all 0.
       # If so, put in the average proportions.
       if( any(is.nan(Props)) ) {
-        AvgProp <- getAvgProp(Fish)
         for( h in 1:nstrats ) {
           for( i in 1:nPgrps ) {
-            if( any(is.nan(Props[i,,h])) ) Props[i,,h] <- AvgProp[,i]
+            if( any(is.nan(Props[i,,h])) ) Props[i,,h] <- AvgProp[i,]
           }
         }
       }
@@ -134,10 +135,10 @@ SCRAPIv2.1 <- function(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear", Pr
       }
       PrimeBySecond <- apply(SecondAbund,c(1,2),sum)
       PrimeBySecond[is.na(PrimeBySecond)] <- 0
-      assign("sTable", PrimeBySecond, envir = .GlobalEnv)
+      if( assignflg == TRUE ) assign("sTable", PrimeBySecond, envir = .GlobalEnv)
       Second <- apply(PrimeBySecond,2,sum)
-      return( list(total,WildStrata,Primaryproportions,Primaryests,Second,PrimeBySecond) )
-    } else   return( list(total,WildStrata,Primaryproportions,Primaryests) )
+      return( list(TotalWild,WildStrata,Primaryproportions,Primaryests,Second,PrimeBySecond) )
+    } else   return( list(TotalWild,WildStrata,Primaryproportions,Primaryests) )
 
   } # end of thetahat function
 
@@ -206,6 +207,9 @@ SCRAPIv2.1 <- function(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear", Pr
 
   #------------  MAIN ---------------------------------------------
 
+  # Initially set assign flag to TRUE. During first pass through thetahat several global variables will be set.
+  assignflg <- TRUE
+
   # Set column numbers for fish data
   # FISHstrat <- which(Strat == names(All))
   FISHdate <- which(Dat == names(All))
@@ -216,13 +220,12 @@ SCRAPIv2.1 <- function(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear", Pr
   nSgrps <- length(FISHsgrps) }
 
   # Set column numbers for passage data
-  PASSstrat   <- which(strat == names(pass))
-  strata      <- unique(pass[,PASSstrat])
+  PASSstrat   <- which(strat == names(pass))  # strat is the original strata (weeks)
   PASSdate    <- which(dat == names(pass))
   PASSrate    <- which(samrate == names(pass))
   PASScounts  <- which(tally == names(pass))
   PASSguideff <- which(guidance == names(pass))
-  PASScollaps <- which(collaps == names(pass))
+  PASScollaps <- which(collaps == names(pass))  # collaps is the eventual strata (collapsed weeks)
 
   # Number of days for which there are passage counts
   ndays <- nrow(pass)
@@ -240,8 +243,7 @@ SCRAPIv2.1 <- function(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear", Pr
   # Calculations for passage data
   pass$true      <- pass[,PASSrate]*pass[,PASSguideff]  # "True" sample rate = Fred's rate x guidance efficiency
   pass$estimated <- pass[,PASScounts]/pass$true # This is the estimate of fish passing on each day.
-  totalpassage   <- round(sum(pass$estimated))
-  cat("\nEstimate of total smolts: ",totalpassage,"\n")
+  #totalpassage   <- round(sum(pass$estimated))
 
   # passage should have daily values for collapsed week, smolt counts and true sampling rate (trap rate x guidance efficiency).
   passdata <- data.frame(Stratum=pass[,PASScollaps],Tally=pass[,PASScounts],Ptrue=pass$true)
@@ -257,6 +259,10 @@ SCRAPIv2.1 <- function(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear", Pr
   rpasscollaps <- round(passcollaps)
   cat("\nEstimate of total smolts by statistical week: \n")
   print(rpasscollaps)
+
+  # Calculate total smolts
+  totalpassage <- round(sum(passcollaps))
+  cat("\nEstimate of total smolts: ",totalpassage,"\n")
 
   # Sort out the fish composition data
 
@@ -278,34 +284,9 @@ SCRAPIv2.1 <- function(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear", Pr
     passtemp <- pass[as.Date(pass[,PASSdate], format = dateFormat) == as.Date(set[nn], origin="1970-01-01", format = dateFormat),]
     All$true[as.Date(All[,FISHdate], format = dateFormat) == as.Date(set[nn], origin="1970-01-01" , format = dateFormat)] <- passtemp$true
   }
-
   # Set up data frame for proportion wild
   # Note that we assume each smolt has a rear type of H or W.  If any are NA, then we need to add a "droplevels".
   RearData <- data.frame(Rear=All[,FISHrear],Stratum=All$Collaps,True=All$true)
-
-  # Calculate the proportion of smolts that are wild and hatchery.  Note.  This section could be deleted.  I kept it to conform to the
-  #                                                                        previous printouts.  Down to 'print( round(c(WildCollaps,TotalWild)) )'.
-  if(nlevels(RearData$Rear) == 1) ProWild <- 1 else {
-    HNCWstrata <- mApply(1/RearData$True,list(RearData$Stratum,RearData$Rear),sum)
-    HNCWstrata[is.na(HNCWstrata)] <- 0
-    HNCWproportions <- prop.table(HNCWstrata,margin=2)
-    HNCWests <- HNCWproportions%*%passcollaps
-    #Tabl  <- table(RearData$Rear,RearData$Stratum)
-    #PropWild    <- prop.table(Tabl,margin=2)
-    PercentHNCW <- 100*round(HNCWproportions,3)
-    ColTotals   <- apply(HNCWstrata,1,sum)
-    cat("\nTrapped hatchery and wild by stratum\n")
-    print( cbind(HNCWstrata,ColTotals) )
-    Proportions <- ColTotals/sum(ColTotals) # This has pooled values for proportion H and W
-    Ovrallpct <- 100*round(Proportions,3)
-    cat("\nPercent hatchery and wild by stratum\n")
-    print( cbind(PercentHNCW,Ovrallpct) )
-    if(REARSTRAT == TRUE) ProWild  <- HNCWproportions[2,] else ProWild <- Proportions[2]
-  }
-  WildCollaps <- ProWild*passcollaps
-  TotalWild   <- sum(WildCollaps)
-  cat("\nWild smolts by stratum\n")
-  print( round(c(WildCollaps,TotalWild)) )
 
   # Select those fish of RTYPE.  Note.  We assume that all trapped smolts have an HNC or W designation.
   AllRTYPE   <- droplevels(All[which(All[,FISHrear]==RTYPE),])
@@ -345,67 +326,72 @@ SCRAPIv2.1 <- function(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear", Pr
     nSgrps <- length(Sgrps)
     p <- p + nSgrps + nPgrps*nSgrps
     AvgProp <- getAvgProp(AllPrime)
-  } else {
+  } else
     AllPrime <- data.frame(Strat=AllPrimary$Collaps,PGrp=AllPrimary[,FISHpndx],SR=AllPrimary$SR)
-  }
-  # Run thetahat() function  Note. This is not necessary now that bootsmolt has a 'if b == 1' step
+
+  # Run thetahat() function.  If B is 0, then this is the only call to thetahat.
   ests <- thetahat(passdata,RearData,AllPrime)
+  assignflg <- FALSE # Global variables have been set.  We no longer need this flag set to TRUE
   pPropTable <- t(ests[[3]])
   if(!is.na(Secondary)) sAbunTable <- ests[[6]]
 
   # Run bootsmolt() function
-  answer <- bootsmolt(RearData,AllPrime,passdata)
-  answer <- cbind(answer,round((((answer[,3]-answer[,2])/answer[,1])/2)*100, 1))
-  colnames(answer) <- c("Estimate","LCI","UCI","P1")
+  if( B > 0 ) {
+    answer <- bootsmolt(RearData,AllPrime,passdata)
+    answer <- cbind(answer,round((((answer[,3]-answer[,2])/answer[,1])/2)*100, 1))
+    colnames(answer) <- c("Estimate","LCI","UCI","P1")
 
-  if( !is.na(Secondary) ){
-    # Now concatenate the primary and secondary names
-    grpnams <- ""
-    for( prim in Pgrps ) {
-      for( nam in Sgrps ) grpnams = c(grpnams,paste0(nam,prim))
+    if( !is.na(Secondary) ){
+      # Now concatenate the primary and secondary names
+      grpnams <- ""
+      for( prim in Pgrps ) {
+        for( nam in Sgrps ) grpnams = c(grpnams,paste0(nam,prim))
+      }
+      grpnams <- grpnams[-1]
+      rownames(answer) <- c("WildSmolts",as.character(Pgrps),Sgrps,grpnams)
+    } else  rownames(answer) <- c("WildSmolts",as.character(Pgrps))
+    cat("\n")
+    print(answer)
+
+    # WRITE OUTPUTS
+    # Write Total Smolts, p(Wild), and Wild Smolts by Strata
+    tSmolts <- t(rbind(rpasscollaps,round(ProWild,4),round(WildCollaps,0)))
+    colnames(tSmolts) <- c("TotalSmolts","p(Wild)","WildSmolts")
+    write.csv(tSmolts, file = paste(Run,"Rear.csv",sep=""))#, append = FALSE, row.names = TRUE, col.names = TRUE, quote = FALSE)
+
+    # Write CIs Output
+    ciFile <- paste(Run,"CIs.csv",sep="")
+    header <- if(is.na(Secondary)) { paste(RTYPE,"-",Primary) } else { paste(RTYPE,"-",Primary,"-",Secondary) }
+    write.table(header, file = ciFile, append = FALSE, row.names = FALSE, col.names = FALSE, quote = FALSE)
+    suppressWarnings(write.table(answer, file = ciFile, col.names = NA, sep =",", append = TRUE))
+    write.table(paste("RearSampleSize =",nAll), file = ciFile, append = TRUE, row.names = FALSE, col.names = FALSE, quote = FALSE)
+    write.table(paste("PrimeSampleSize =",nFISH), file = ciFile, append = TRUE, row.names = FALSE, col.names = FALSE, quote = FALSE)
+    if(!is.na(Secondary)) { write.table(paste("SecondSampleSize =",nsFish), file = ciFile, append = TRUE, row.names = FALSE, col.names = FALSE, quote = FALSE) }
+
+    # Write Primary Results
+    primeFile   <- paste(Run,"Prime.csv",sep="")
+    pFreqTable  <- table(AllPrimary$Collaps,AllPrimary[,Primary])
+    pAbunTable  <- round(sweep(pPropTable, MARGIN = 1, WildCollaps, '*'),0)
+    PrimeTotals <- round(apply(pAbunTable,2,sum),0)
+    write.table(pFreqTable, file = primeFile, col.names = NA, sep = ",", append = FALSE)
+    write.table(pPropTable, file = primeFile, row.names = TRUE, col.names = FALSE, append = TRUE, sep = ",")
+    write.table(pAbunTable, file = primeFile, row.names = TRUE, col.names = FALSE, append = TRUE, sep = ",")
+    write.table(t(PrimeTotals), file = primeFile, row.names = "PrimeTotals", col.names = FALSE, append = TRUE, sep = ",")
+
+    # Write Primary x Secondary Results
+    if(!is.na(Secondary)) {
+      sAbunTable <- cbind(sAbunTable,apply(sAbunTable,1,sum))
+      sAbunTable <- rbind(sAbunTable,apply(sAbunTable,2,sum))
+      rownames(sAbunTable) <- c(levels(Pgrps),"sTotals")
+      colnames(sAbunTable) <- c(Sgrps,"pTotals")
+      sAbunTable <- round(sAbunTable,0)
+      write.table(sAbunTable, file = paste(Run,"PxS.csv",sep=""), col.names = NA, append = FALSE, sep = ",")
     }
-    grpnams <- grpnams[-1]
-    rownames(answer) <- c("WildSmolts",as.character(Pgrps),Sgrps,grpnams)
-  } else  rownames(answer) <- c("WildSmolts",as.character(Pgrps))
-  cat("\n")
-  print(answer)
 
-  # WRITE OUTPUTS
-  # Write Total Smolts, p(Wild), and Wild Smolts by Strata
-  tSmolts <- t(rbind(rpasscollaps,round(ProWild,4),round(WildCollaps,0)))
-  colnames(tSmolts) <- c("TotalSmolts","p(Wild)","WildSmolts")
-  write.csv(tSmolts, file = paste(Run,"Rear.csv",sep=""))#, append = FALSE, row.names = TRUE, col.names = TRUE, quote = FALSE)
-
-  # Write CIs Output
-  ciFile <- paste(Run,"CIs.csv",sep="")
-  header <- if(is.na(Secondary)) { paste(RTYPE,"-",Primary) } else { paste(RTYPE,"-",Primary,"-",Secondary) }
-  write.table(header, file = ciFile, append = FALSE, row.names = FALSE, col.names = FALSE, quote = FALSE)
-  suppressWarnings(write.table(answer, file = ciFile, col.names = NA, sep =",", append = TRUE))
-  write.table(paste("RearSampleSize =",nAll), file = ciFile, append = TRUE, row.names = FALSE, col.names = FALSE, quote = FALSE)
-  write.table(paste("PrimeSampleSize =",nFISH), file = ciFile, append = TRUE, row.names = FALSE, col.names = FALSE, quote = FALSE)
-  if(!is.na(Secondary)) { write.table(paste("SecondSampleSize =",nsFish), file = ciFile, append = TRUE, row.names = FALSE, col.names = FALSE, quote = FALSE) }
-
-  # Write Primary Results
-  primeFile   <- paste(Run,"Prime.csv",sep="")
-  pFreqTable  <- table(AllPrimary$Collaps,AllPrimary[,Primary])
-  pAbunTable  <- round(sweep(pPropTable, MARGIN = 1, WildCollaps, '*'),0)
-  PrimeTotals <- round(apply(pAbunTable,2,sum),0)
-  write.table(pFreqTable, file = primeFile, col.names = NA, sep = ",", append = FALSE)
-  write.table(pPropTable, file = primeFile, row.names = TRUE, col.names = FALSE, append = TRUE, sep = ",")
-  write.table(pAbunTable, file = primeFile, row.names = TRUE, col.names = FALSE, append = TRUE, sep = ",")
-  write.table(t(PrimeTotals), file = primeFile, row.names = "PrimeTotals", col.names = FALSE, append = TRUE, sep = ",")
-
-  # Write Primary x Secondary Results
-  if(!is.na(Secondary)) {
-    sAbunTable <- cbind(sAbunTable,apply(sAbunTable,1,sum))
-    sAbunTable <- rbind(sAbunTable,apply(sAbunTable,2,sum))
-    rownames(sAbunTable) <- c(levels(Pgrps),"sTotals")
-    colnames(sAbunTable) <- c(Sgrps,"pTotals")
-    sAbunTable <- round(sAbunTable,0)
-    write.table(sAbunTable, file = paste(Run,"PxS.csv",sep=""), col.names = NA, append = FALSE, sep = ",")
+    # END
+  } else {
+    cat("\nNo bootstrap; just print estimates\n")
+    print(ests)
   }
-
-  # END
   cat("\nEnd time: ",date(),"\n")
-}
-
+} ### END SCRAPI
