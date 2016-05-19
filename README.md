@@ -3,7 +3,7 @@ Salmonid COmposition Bootstrap Intervals
 
 `SCOBI` is an R package for performing compositional analyses of adults and smolts at Lower Granite Dam. Adults are analyzed using 
 the function `SCOBI()`. Juveniles are analyzed using the function `SCRAPI()`. It also contains the useful functions `lgr2SCOBI()` 
-and `lgr2SCRAPI` for formatting raw data from the Lower Granite Dam trapping database (LGTrappingDB) for input into the `SCOBI()`
+and `lgr2SCRAPI()` for formatting raw data from the Lower Granite Dam trapping database (LGTrappingDB) for input into the `SCOBI()`
 and `SCRAPI()` functions.
 
 ## Getting Started
