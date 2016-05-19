@@ -6,6 +6,8 @@ the function `SCOBI()`. Juveniles are analyzed using the function `SCRAPI()`. It
 and `lgr2SCRAPI` for formatting raw data from the Lower Granite Dam trapping database (LGTrappingDB) for input into the `SCOBI()`
 and `SCRAPI()` functions.
 
+## Getting Started
+
 To install `SCOBI` you can use Hadley Wickham's `devtools` package. To install and load the `devtools` package use:
 ```
 install.packages("devtools")
