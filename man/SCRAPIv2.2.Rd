@@ -2,7 +2,7 @@
 % Please edit documentation in R/SCRAPIv2_2.r
 \name{SCRAPIv2.2}
 \alias{SCRAPIv2.2}
-\title{SCRAPI v2.2 The smolt companion to SCOBI}
+\title{SCRAPI v2.2: The smolt companion to SCOBI}
 \usage{
 SCRAPIv2.2(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear",
   Primary = "GenStock", Secondary = NA, passageData = NULL,

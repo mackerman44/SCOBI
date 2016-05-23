@@ -61,8 +61,8 @@ SCRAPIv2.2 <- function(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear", Pr
                        collaps = "Collapse", Run = "output", RTYPE = "W", REARSTRAT = TRUE, alph = 0.1, B = 5000, dateFormat = "%m/%d/%Y")
 {
   # Import data
-  All  <- read.csv(file = smoltData, header = TRUE)
-  pass <- read.csv(file = passageData, header = TRUE)
+  if(is.character(smoltData) == TRUE)   { All  <- read.csv(file = smoltData, header = TRUE) } else { All <- smoltData }
+  if(is.character(passageData) == TRUE) { pass <- read.csv(file = passageData, header = TRUE) } else { pass <- passageData }
 
   # Write header
   cat("\nStart time: ",date(),"\n")

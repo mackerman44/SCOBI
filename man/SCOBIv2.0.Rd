@@ -50,6 +50,10 @@ to the H stocks in the \code{adultData}, the second column should contain the PB
 \description{
 Perform compositional analyses of adults at Lower Granite Dam.
 }
+\examples{
+SCOBIv2.0(adultData = sthdScobiInput, windowData = sthdWindowCounts, Run = "sthdDemo", RTYPE = "W", Primary = "GenStock", Secondary = "GenSex", alph = 0.1, B = 100, writeTheta = FALSE, writeOutput = TRUE)
+
+}
 \author{
 Kirk Steinhorst and Mike Ackerman
 }

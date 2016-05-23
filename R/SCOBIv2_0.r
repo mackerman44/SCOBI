@@ -29,6 +29,9 @@
 #'
 #' @seealso \code{\link[MCPAN]{SCSrank}}
 #' @author Kirk Steinhorst and Mike Ackerman
+#'
+#' @examples SCOBIv2.0(adultData = sthdScobiInput, windowData = sthdWindowCounts, Run = "sthdDemo", RTYPE = "W", Primary = "GenStock", Secondary = "GenSex", alph = 0.1, B = 100, writeTheta = FALSE, writeOutput = TRUE)
+#'
 #' @references Steinhorst, K., T. Copeland, M. W. Ackerman, W. C. Schrader, E. C. Anderson (In review) Estimates and Confidence Intervals for Run Composition
 #' of Returning Salmonids. Fishery Bulletin.
 #'
@@ -89,9 +92,11 @@ SCOBIv2.0 <- function(adultData = NULL, windowData = NULL, Run = "output", RTYPE
                       Secondary = NA, SizeCut = 780, alph = 0.1, B = 5000, writeThetas = FALSE, writeOutput = TRUE,
                       pbtExpand = FALSE, pbtRates = NULL)
 {
-  Fishdata <- read.csv(file = adultData, header = TRUE, na.strings = c("NA",""))
-  Windata  <- read.csv(file = windowData, header = TRUE)
-  if( pbtExpand == TRUE) { pbtRate <- read.csv(file = pbtRates, header = TRUE) }
+  if ( is.character(adultData) == TRUE )  { Fishdata <- read.csv(file = adultData, header = TRUE, na.strings = c("NA","")) } else { Fishdata <- adultData }
+  if ( is.character(windowData) == TRUE ) { Windata  <- read.csv(file = windowData, header = TRUE) } else { Windata <- windowData }
+  if ( pbtExpand == TRUE ) {
+    if ( is.character(pbtRates) == TRUE ) { pbtRate <- read.csv(file = pbtRates, header = TRUE) } else { pbtRate <- pbtRates }
+    }
   collaps <- Windata$Collaps
 
 # Write header
