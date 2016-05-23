@@ -1,4 +1,4 @@
-#' @title SCRAPI v2.2 The smolt companion to SCOBI
+#' @title SCRAPI v2.2: The smolt companion to SCOBI
 #'
 #' @description Perform compositional analyses of smolts at Lower Granite Dam.
 #'
