@@ -1,7 +1,7 @@
 Package: SCOBI
 Type: Package
 Title: Salmonid Composition Bootstrap Intervals
-Version: 1.0.1
+Version: 1.0.2
 Date: 05-10-2016
 Author: Mike Ackerman <mike.ackerman@idfg.idaho.gov> and Kirk Steinhorst <42kirk@moscow.com>
 Maintainer: Mike Ackerman <mike.ackerman@idfg.idaho.gov>
