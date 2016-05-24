@@ -51,7 +51,11 @@ to the H stocks in the \code{adultData}, the second column should contain the PB
 Perform compositional analyses of adults at Lower Granite Dam.
 }
 \examples{
-SCOBIv2.0(adultData = sthdScobiInput, windowData = sthdWindowCounts, Run = "sthdDemo", RTYPE = "W", Primary = "GenStock", Secondary = "GenSex", alph = 0.1, B = 100, writeTheta = FALSE, writeOutput = TRUE)
+SCOBIv2.0(adultData = sthdScobiInput, windowData = sthdWindowCounts, Run = "sthdDemo",
+RTYPE = "W", Primary = "GenStock", Secondary = "GenSex", alph = 0.1, B = 100)
+
+SCOBIv2.0(adultData = pbtTestFish, windowData = sthdWindowCounts, Run = "sthdPbtDemo",
+RTYPE = "H", Primary = "PbtStock", Secondary = NA, alph = 0.1, B = 100)
 
 }
 \author{

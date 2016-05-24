@@ -29,6 +29,12 @@
 #'
 #' @author Kirk Steinhorst and Mike Ackerman
 #'
+#' @examples SCRAPIv2.2(smoltData = sthdScrapiInput, Primary = "GenStock", Secondary = "fwAge",
+#' passageData = sthdSmoltPassData, Run = "sthdSmoltTest", RTYPE = "W", alph = 0.1, B = 200)
+#'
+#' SCRAPIv2.2(smoltData = chnkScrapiInput, Primary = "GenStock", Secondary = "GenSex",
+#' passageData = sthdSmoltPassData, Run = "ch1SmoltTest", RTYPE = "W", alph = 0.1, B = 200)
+#'
 #' @import stats plyr
 #' @export
 #' @return NULL

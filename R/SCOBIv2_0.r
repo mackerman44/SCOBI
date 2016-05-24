@@ -30,7 +30,11 @@
 #' @seealso \code{\link[MCPAN]{SCSrank}}
 #' @author Kirk Steinhorst and Mike Ackerman
 #'
-#' @examples SCOBIv2.0(adultData = sthdScobiInput, windowData = sthdWindowCounts, Run = "sthdDemo", RTYPE = "W", Primary = "GenStock", Secondary = "GenSex", alph = 0.1, B = 100, writeTheta = FALSE, writeOutput = TRUE)
+#' @examples SCOBIv2.0(adultData = sthdScobiInput, windowData = sthdWindowCounts, Run = "sthdDemo",
+#' RTYPE = "W", Primary = "GenStock", Secondary = "GenSex", alph = 0.1, B = 100)
+#'
+#' SCOBIv2.0(adultData = pbtTestFish, windowData = sthdWindowCounts, Run = "sthdPbtDemo",
+#' RTYPE = "H", Primary = "PbtStock", Secondary = NA, alph = 0.1, B = 100)
 #'
 #' @references Steinhorst, K., T. Copeland, M. W. Ackerman, W. C. Schrader, E. C. Anderson (In review) Estimates and Confidence Intervals for Run Composition
 #' of Returning Salmonids. Fishery Bulletin.
