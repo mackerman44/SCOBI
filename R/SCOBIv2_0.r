@@ -43,55 +43,6 @@
 #' @export
 #' @return NULL
 
-#########################################################################################
-#                            SCOBI.r                                 Febuary 2015       #
-#  Copyright                                                         Kirk Steinhorst    #
-#                                                                                       #
-#  "SCOBI.r" is used to find estimates and confidence intervals for two composition     #
-#  factors--sex or age or genetic stock or size (for steelhead.  One is listed as the   #
-#  PRIMARY factor and the other is listed as the SECONDARY factor.  Estimates are given #
-#  for the PRIMARY factor and the estimates for the SECONDARY factor add to the PRIMARY #
-#  factor estimates.                                                                    #
-#                                                                                       #
-#  Estimates are given for H, HNC, and W escapement.  Composition estimates are         #
-#  given for fish of a selected type -- H or HNC or W.  Additionally, the PRIMARY       #
-#  factor can be broken down one more level if requested.                               #
-#                                                                                       #
-# Permissible column names in the excel window counts tab are Strata, a count variable, #
-# and Collaps.  On the fish data tab, you can have any number of columns with any       #
-# number of names, but the names must include WeekNumber and the names of the PRIMARY   #
-# and SECONDARY composition factors from GenSex, BY, GenStock and, for steelhead,       #
-# LGDFLmm.                                                                              #
-#                                                                                       #
-#  Window counts are collapsed into "statistical weeks" = strata defined by the user.   #
-#  The collapsing pattern must collapse window counts in weeks where no trapped fish    #
-#  are available into adjacent weeks where trapped fish are available.  Clearly we      #
-#  would like to have a good composition sample for each statistical week, but          #
-#  practically speaking we don't need to know composition well for weeks when few fish  #
-#  of the type of interest (H, HNC, or W) are passing.                                  #
-#                                                                                       #
-#  Outputs include estimates and confidence intervals for numbers of H, HNC, and W fish #
-#  passing Lower Granite dam.  You also get estimates and confidence intervals for      #
-#  the PRIMARY (and SECONDARY, if requested) composition factor(s).                     #
-#                                                                                       #
-#  Three to five .csv files are produced -- *Rearing.csv, *Prime.csv, *CIs.csv, and     #
-#  (if subgroups are requested) *GrpEsts.csv and *Subgroups.csv. The rearing file       #
-#  contains frequencies, proportions, and estimates by statistical week for H, HNC, and #
-#  W. The prime file contains frequencies, proportions, and estimates by statistical    #
-#  week for the PRIMARY composition factor. The CIs file contains abundance estimates   #
-#  and confidence intervals (both one-at-a-time and simultaneous) for the PRIMARY (and  #
-#  SECONDARY if requested) composition factors. The GrpEsts file contains abundance     #
-#  estimates for the SECONDARY composition groups by statistical week. The Subgroups    #
-#  file contains the frequency and proportions of the SECONDARY groups in a             #
-#  Primary x Secondary format.                                                          #
-#                                                                                       #
-#  Be sure to change the names of these files or change directories before making       #
-#  another run or these .csv files will be overwritten.                                 #
-#                                                                                       #
-#  Copyright February 16, 2015  Kirk Steinhorst                                         #
-#                                                                                       #
-#########################################################################################
-
 SCOBIv2.0 <- function(adultData = NULL, windowData = NULL, Run = "output", RTYPE = "W", Primary = "GenStock",
                       Secondary = NA, SizeCut = 780, alph = 0.1, B = 5000, writeThetas = FALSE, writeOutput = TRUE,
                       pbtExpand = FALSE, pbtRates = NULL)
@@ -481,4 +432,53 @@ if( B > 0) {
    if(!is.na(Secondary)) { write.table(paste("SecondarySampleSize =",secondaryN),file = paste(Run,"CIs.csv",sep=""),append = TRUE, row.names = FALSE, col.names = FALSE, quote = FALSE) }
    }
    cat("\nEnd time: ",date(),"\n")
+
+   #########################################################################################
+   #                            SCOBI.r                                 Febuary 2015       #
+   #  Copyright                                                         Kirk Steinhorst    #
+   #                                                                                       #
+   #  "SCOBI.r" is used to find estimates and confidence intervals for two composition     #
+   #  factors--sex or age or genetic stock or size (for steelhead.  One is listed as the   #
+   #  PRIMARY factor and the other is listed as the SECONDARY factor.  Estimates are given #
+   #  for the PRIMARY factor and the estimates for the SECONDARY factor add to the PRIMARY #
+   #  factor estimates.                                                                    #
+   #                                                                                       #
+   #  Estimates are given for H, HNC, and W escapement.  Composition estimates are         #
+   #  given for fish of a selected type -- H or HNC or W.  Additionally, the PRIMARY       #
+   #  factor can be broken down one more level if requested.                               #
+   #                                                                                       #
+   # Permissible column names in the excel window counts tab are Strata, a count variable, #
+   # and Collaps.  On the fish data tab, you can have any number of columns with any       #
+   # number of names, but the names must include WeekNumber and the names of the PRIMARY   #
+   # and SECONDARY composition factors from GenSex, BY, GenStock and, for steelhead,       #
+   # LGDFLmm.                                                                              #
+   #                                                                                       #
+   #  Window counts are collapsed into "statistical weeks" = strata defined by the user.   #
+   #  The collapsing pattern must collapse window counts in weeks where no trapped fish    #
+   #  are available into adjacent weeks where trapped fish are available.  Clearly we      #
+   #  would like to have a good composition sample for each statistical week, but          #
+   #  practically speaking we don't need to know composition well for weeks when few fish  #
+   #  of the type of interest (H, HNC, or W) are passing.                                  #
+   #                                                                                       #
+   #  Outputs include estimates and confidence intervals for numbers of H, HNC, and W fish #
+   #  passing Lower Granite dam.  You also get estimates and confidence intervals for      #
+   #  the PRIMARY (and SECONDARY, if requested) composition factor(s).                     #
+   #                                                                                       #
+   #  Three to five .csv files are produced -- *Rearing.csv, *Prime.csv, *CIs.csv, and     #
+   #  (if subgroups are requested) *GrpEsts.csv and *Subgroups.csv. The rearing file       #
+   #  contains frequencies, proportions, and estimates by statistical week for H, HNC, and #
+   #  W. The prime file contains frequencies, proportions, and estimates by statistical    #
+   #  week for the PRIMARY composition factor. The CIs file contains abundance estimates   #
+   #  and confidence intervals (both one-at-a-time and simultaneous) for the PRIMARY (and  #
+   #  SECONDARY if requested) composition factors. The GrpEsts file contains abundance     #
+   #  estimates for the SECONDARY composition groups by statistical week. The Subgroups    #
+   #  file contains the frequency and proportions of the SECONDARY groups in a             #
+   #  Primary x Secondary format.                                                          #
+   #                                                                                       #
+   #  Be sure to change the names of these files or change directories before making       #
+   #  another run or these .csv files will be overwritten.                                 #
+   #                                                                                       #
+   #  Copyright February 16, 2015  Kirk Steinhorst                                         #
+   #                                                                                       #
+   #########################################################################################
 }

@@ -39,29 +39,6 @@
 #' @export
 #' @return NULL
 
-#            SCRAPI 2.2
-# This R program calculates bootstrap confidence intervals for total wild (or hatchery)
-# and wild (or hatchery) by group (of your choice) for smolts arriving at Lower Granite dam.
-# Groups can be made up of a single catetgorical variable (sex, age, genstock, or size) or
-# two categorical variables--one nested within the other.
-#
-# Bootstrap confidence intervals account for variability in counts at Lower Granite Dam
-# and variability in sampling smolts at the dam.
-#
-# The excel input file has 2 tabs--fish data and passage data
-# The column headings are arbitrary--you can use any names you want (without spaces though).
-# The column names will be supplied in the "Things that might change" section.
-# The fish tab should include columns for stratum, date, rearing condition (W,H), a PRIMARY categorization variable
-# such as sex, age, genstock... and (perhaps) a SECONDARY categorization variable.
-# The passage tab should include stratum, date, smolt count, trap sampling rate, guidance efficiency, and collapsing pattern
-#
-# Version 2.0 adds variability for proportion wild and hatchery to the bootstrap process
-# Previous versions calculated proportion wild versus hatchery just once and left it fixed.
-# Version 2.1 weights rearing status (HNC and W) by true sampling rate
-# Version 2.2 cleans up the code
-#
-# Copyright Kirk Steinhorst May 12, 2016
-
 SCRAPIv2.2 <- function(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear", Primary = "GenStock", Secondary = NA, passageData = NULL,
                        strat = "Week", dat = "SampleEndDate", tally = "SampleCount", samrate = "SampleRate", guidance = "GuidanceEfficiency",
                        collaps = "Collapse", Run = "output", RTYPE = "W", REARSTRAT = TRUE, alph = 0.1, B = 5000, dateFormat = "%m/%d/%Y")
@@ -400,4 +377,27 @@ SCRAPIv2.2 <- function(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear", Pr
     print(ests)
   }
   cat("\nEnd time: ",date(),"\n")
+
+  #            SCRAPI 2.2
+  # This R program calculates bootstrap confidence intervals for total wild (or hatchery)
+  # and wild (or hatchery) by group (of your choice) for smolts arriving at Lower Granite dam.
+  # Groups can be made up of a single catetgorical variable (sex, age, genstock, or size) or
+  # two categorical variables--one nested within the other.
+  #
+  # Bootstrap confidence intervals account for variability in counts at Lower Granite Dam
+  # and variability in sampling smolts at the dam.
+  #
+  # The excel input file has 2 tabs--fish data and passage data
+  # The column headings are arbitrary--you can use any names you want (without spaces though).
+  # The column names will be supplied in the "Things that might change" section.
+  # The fish tab should include columns for stratum, date, rearing condition (W,H), a PRIMARY categorization variable
+  # such as sex, age, genstock... and (perhaps) a SECONDARY categorization variable.
+  # The passage tab should include stratum, date, smolt count, trap sampling rate, guidance efficiency, and collapsing pattern
+  #
+  # Version 2.0 adds variability for proportion wild and hatchery to the bootstrap process
+  # Previous versions calculated proportion wild versus hatchery just once and left it fixed.
+  # Version 2.1 weights rearing status (HNC and W) by true sampling rate
+  # Version 2.2 cleans up the code
+  #
+  # Copyright Kirk Steinhorst May 12, 2016
 } ### END SCRAPI
