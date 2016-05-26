@@ -20,14 +20,14 @@ Count, and Collaps}
 \item{Run}{synopsis of the run being conducted. \code{Run} will be used as the prefix for all of your output files. \code{Run} should generally
 contain the spawn year, rear, species, primary, and (if desired) secondary categories. For example, "sy2015wSthdStockSex"}
 
-\item{RTYPE}{which rear type (wild [H], hatchery [H], or hatchery unclipped [HNC]) would you like to perform the current analysis on}
+\item{RTYPE}{which rear type (wild [W], hatchery [H], or hatchery unclipped [HNC]) would you like to perform the current analysis on}
 
 \item{Primary}{the primary category in the \code{adultData} to be estimated. i.e., after \code{RTYPE} what category would you like to decompose next?}
 
 \item{Secondary}{the secondary category in the \code{adultData} to be estimated. i.e. after \code{Primary} what category would you like to
 decompose next? Use \code{Secondary = NA} if no secondary decomposition is desired}
 
-\item{SizeCut}{if Secondary = "LGDFLmm", what FL would you like to use to separate Sm versus Lg fish. For steelhead, set \code{SizeCut = 780}
+\item{SizeCut}{if \code{Secondary} = "LGDFLmm", what FL would you like to use to separate Sm versus Lg fish. For steelhead, set \code{SizeCut = 780}
 (the default) to separate A-run and B-run fish. For Chinook, set \code{SizeCut = 570} to separate Jacks and Adults}
 
 \item{alph}{the alpha used for confidence intervals (e.g., \code{alph} = 0.10 results in 90 percent CIs)}
