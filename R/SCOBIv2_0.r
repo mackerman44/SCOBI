@@ -44,7 +44,7 @@
 #' @return NULL
 
 SCOBIv2.0 <- function(adultData = NULL, windowData = NULL, Run = "output", RTYPE = "W", Primary = "GenStock",
-                      Secondary = NA, SizeCut = 780, alph = 0.1, B = 5000, writeThetas = FALSE, writeOutput = TRUE,
+                      Secondary = NA, SizeCut = NULL, alph = 0.1, B = 5000, writeThetas = FALSE, writeOutput = TRUE,
                       pbtExpand = FALSE, pbtRates = NULL)
 {
   if ( is.character(adultData) == TRUE )  { Fishdata <- read.csv(file = adultData, header = TRUE, na.strings = c("NA","")) } else { Fishdata <- adultData }
