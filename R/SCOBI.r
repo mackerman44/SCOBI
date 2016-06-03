@@ -1,10 +1,10 @@
-#' @title SCOBI: Salmonid COmposition Boostrap Intervals
+#' @title SCOBI: Salmonid COmposition Boostrap Intervals (v2.0)
 #'
 #' @description Perform compositional analyses of adults at Lower Granite Dam.
 #'
 #' @param adultData the .csv file containing the biological data for the adults to be analyzed. The file should contain data for all fish trapped in
 #' a given spawn year and for a given species. The function \code{lgr2SCOBI()} can be used to format data exported from the LGTrappingDB to make it
-#' ready for the \code{SCOBIpbt()} function
+#' ready for the \code{SCOBI()} function
 #' @param windowData the .csv file containing the window count data for the adults to be analyzed. \code{windowData} should contain 3 columns: Strata,
 #' Count, and Collaps
 #' @param Run synopsis of the run being conducted. \code{Run} will be used as the prefix for all of your output files. \code{Run} should generally
@@ -30,10 +30,10 @@
 #' @seealso \code{\link[MCPAN]{SCSrank}}
 #' @author Kirk Steinhorst and Mike Ackerman
 #'
-#' @examples SCOBIv2.0(adultData = sthdScobiInput, windowData = sthdWindowCounts, Run = "sthdDemo",
+#' @examples SCOBI(adultData = sthdScobiInput, windowData = sthdWindowCounts, Run = "sthdDemo",
 #' RTYPE = "W", Primary = "GenStock", Secondary = "GenSex", alph = 0.1, B = 100)
 #'
-#' SCOBIv2.0(adultData = pbtTestFish, windowData = sthdWindowCounts, Run = "sthdPbtDemo",
+#' SCOBI(adultData = pbtTestFish, windowData = sthdWindowCounts, Run = "sthdPbtDemo",
 #' RTYPE = "H", Primary = "PbtStock", Secondary = NA, alph = 0.1, B = 100)
 #'
 #' @references Steinhorst, K., T. Copeland, M. W. Ackerman, W. C. Schrader, E. C. Anderson (In review) Estimates and Confidence Intervals for Run Composition
@@ -43,10 +43,11 @@
 #' @export
 #' @return NULL
 
-SCOBIv2.0 <- function(adultData = NULL, windowData = NULL, Run = "output", RTYPE = "W", Primary = "GenStock",
-                      Secondary = NA, SizeCut = 780, alph = 0.1, B = 5000, writeThetas = FALSE, writeOutput = TRUE,
-                      pbtExpand = FALSE, pbtRates = NULL)
+SCOBI <- function(adultData = NULL, windowData = NULL, Run = "output", RTYPE = "W", Primary = "GenStock",
+                  Secondary = NA, SizeCut = 780, alph = 0.1, B = 5000, writeThetas = FALSE, writeOutput = TRUE,
+                  pbtExpand = FALSE, pbtRates = NULL)
 {
+  # THIS IS SCOBIv2.0
   if ( is.character(adultData) == TRUE )  { Fishdata <- read.csv(file = adultData, header = TRUE, na.strings = c("NA","")) } else { Fishdata <- adultData }
   if ( is.character(windowData) == TRUE ) { Windata  <- read.csv(file = windowData, header = TRUE) } else { Windata <- windowData }
   if ( pbtExpand == TRUE ) {

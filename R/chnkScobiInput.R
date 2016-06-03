@@ -1,6 +1,6 @@
 #' @title Chinook Adult Data from LGTrappingDB formatted for SCOBI
 #'
-#' @description This is a Chinook adult data set from SY2015 that has already been formatted for \code{SCOBI()}.
+#' @description This is an example dataset for adult Chinook from SY2015 that has already been formatted for \code{SCOBI()}.
 #' @name chnkScobiInput
 #' @docType data
 #' @usage chnkScobiInput

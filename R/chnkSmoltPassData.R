@@ -1,6 +1,6 @@
 #' @title MY2015 Chinook Smolt Passage Data
 #'
-#' @description This is a Chinook smolt passage data set from MY2015 that has already been formatted for \code{SCRAPI()}.
+#' @description This is an example Chinook smolt passage dataset from MY2015 that has already been formatted for \code{SCRAPI()}.
 #' @name chnkSmoltPassData
 #' @docType data
 #' @usage chnkSmoltPassData

@@ -1,7 +1,7 @@
 #' @title Example Chinook Adult Data from LGTrappingDB
 #'
 #' @description This is raw Chinook adult data 'dumped' out of the LGTrappingDB that was originally saved as a .csv file. No formatting
-#' has been done whatsoever.
+#' has been done whatsoever. Data is from SY2015.
 #' @name exRawChnkAdultData
 #' @docType data
 #' @usage exRawChnkAdultData

@@ -29,19 +29,19 @@
 #'
 #' @author Kirk Steinhorst and Mike Ackerman
 #'
-#' @examples SCRAPIv2.2(smoltData = sthdScrapiInput, Primary = "GenStock", Secondary = "fwAge",
+#' @examples SCRAPI(smoltData = sthdScrapiInput, Primary = "GenStock", Secondary = "fwAge",
 #' passageData = sthdSmoltPassData, Run = "sthdSmoltTest", RTYPE = "W", alph = 0.1, B = 200)
 #'
-#' SCRAPIv2.2(smoltData = chnkScrapiInput, Primary = "GenStock", Secondary = "GenSex",
+#' SCRAPI(smoltData = chnkScrapiInput, Primary = "GenStock", Secondary = "GenSex",
 #' passageData = sthdSmoltPassData, Run = "ch1SmoltTest", RTYPE = "W", alph = 0.1, B = 200)
 #'
 #' @import stats plyr
 #' @export
 #' @return NULL
 
-SCRAPIv2.2 <- function(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear", Primary = "GenStock", Secondary = NA, passageData = NULL,
-                       strat = "Week", dat = "SampleEndDate", tally = "SampleCount", samrate = "SampleRate", guidance = "GuidanceEfficiency",
-                       collaps = "Collapse", Run = "output", RTYPE = "W", REARSTRAT = TRUE, alph = 0.1, B = 5000, dateFormat = "%m/%d/%Y")
+SCRAPI <- function(smoltData = NULL, Dat = "CollectionDate", Rr = "Rear", Primary = "GenStock", Secondary = NA, passageData = NULL,
+                   strat = "Week", dat = "SampleEndDate", tally = "SampleCount", samrate = "SampleRate", guidance = "GuidanceEfficiency",
+                   collaps = "Collapse", Run = "output", RTYPE = "W", REARSTRAT = TRUE, alph = 0.1, B = 5000, dateFormat = "%m/%d/%Y")
 {
   # Import data
   if(is.character(smoltData) == TRUE)   { All  <- read.csv(file = smoltData, header = TRUE) } else { All <- smoltData }
