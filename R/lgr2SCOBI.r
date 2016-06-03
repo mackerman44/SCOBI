@@ -109,7 +109,7 @@ lgr2SCOBI <- function(input = NULL, species = "chnk", exportFile = NULL)
     if( !is.na(data$GenBY[i]) ) data[i,c("fwAge","swAge","Age","totalAge")] <- NA
   }
 
-  # FOR ANY FISH WHERE BioSamplesValid = 0, (blank), or NA we need to replace the cell contents with NA for the following columns:
+  # For any fish where BioSamplesValid = 0, (blank), or NA we need to replace the cell contents with NA for the following columns:
   # fwAge, swAge, Age, totalAge, BY. This removes fish that were detected at PIT tag arrays that are not needed for aggregate age composition.
   for(i in 1:nrow(data)){
     if( is.na(data$BiosamplesValid[i]) ) data[i,c("fwAge","swAge","Age","totalAge","BY")] <- NA

@@ -9,7 +9,7 @@
 chnkSmoltPassData
 }
 \description{
-This is a Chinook smolt passage data set from MY2015 that has already been formatted for \code{SCRAPI()}.
+This is an example Chinook smolt passage dataset from MY2015 that has already been formatted for \code{SCRAPI()}.
 }
 \keyword{Chinook}
 \keyword{data}

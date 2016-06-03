@@ -9,7 +9,7 @@
 chnkScrapiInput
 }
 \description{
-This is a Chinook smolt data set from MY2015 that has already been formatted for \code{SCRAPI()}.
+This is an example dataset of Chinook yearling smolts from MY2015 that has already been formatted for \code{SCRAPI()}.
 }
 \keyword{Chinook}
 \keyword{data}

@@ -9,7 +9,7 @@
 chnkScobiInput
 }
 \description{
-This is a Chinook adult data set from SY2015 that has already been formatted for \code{SCOBI()}.
+This is an example dataset for adult Chinook from SY2015 that has already been formatted for \code{SCOBI()}.
 }
 \keyword{Chinook}
 \keyword{adult}

@@ -10,7 +10,7 @@ exRawChnkAdultData
 }
 \description{
 This is raw Chinook adult data 'dumped' out of the LGTrappingDB that was originally saved as a .csv file. No formatting
-has been done whatsoever.
+has been done whatsoever. Data is from SY2015.
 }
 \keyword{Chinook}
 \keyword{adult}

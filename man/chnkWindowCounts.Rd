@@ -9,7 +9,7 @@
 chnkWindowCounts
 }
 \description{
-This is a Chinook window count data set from SY2015 that has already been formatted for \code{SCOBI()}.
+This is an example Chinook window count dataset from SY2015 that has already been formatted for \code{SCOBI()}.
 }
 \keyword{Chinook}
 \keyword{adult}

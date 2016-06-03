@@ -10,7 +10,7 @@ exRawSthdSmoltData
 }
 \description{
 This is raw steelhead smolt data 'dumped' out of the LGTrappingDB that was originally saved as a .csv file. No formatting
-has been done whatsoever.
+has been done whatsoever. Data is from MY2015.
 }
 \keyword{data}
 \keyword{smolt}
