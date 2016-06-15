@@ -5,6 +5,6 @@
 #' @name pbtTagRates
 #' @docType data
 #' @usage pbtTagRates
-#' @format Data is formatted and ready for \code{SCOBI()}. Originally saved as a csv file
+#' @format Data is formatted and ready for \code{SCOBI()}. Originally saved as a .csv file
 #' @keywords steelhead tag rates PBT adult
 NULL
