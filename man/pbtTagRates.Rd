@@ -4,7 +4,7 @@
 \name{pbtTagRates}
 \alias{pbtTagRates}
 \title{Example PBT Tag Rates Data}
-\format{Data is formatted and ready for \code{SCOBI()}. Originally saved as a csv file}
+\format{Data is formatted and ready for \code{SCOBI()}. Originally saved as a .csv file}
 \usage{
 pbtTagRates
 }

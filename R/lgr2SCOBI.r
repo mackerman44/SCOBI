@@ -71,6 +71,7 @@ lgr2SCOBI <- function(input = NULL, species = "chnk", exportFile = NULL)
   data$swAge <- recode(data$swAge,"c('A','?','')=NA")
   data$swAge[is.na(data$fwAge)] <- NA    # if fwAge == NA, change swAge to NA
   data$swAge <- gsub("S","R",data$swAge) # replace "S" with "R" in swAge column
+  data$swAge <- gsub("s","R",data$swAge) # replace "S" with "R" in swAge column
 
   # CREATE NEW Age COLUMN THAT CONCATENATES THE fwAge & swAge
   data[,"Age"] <- NA
