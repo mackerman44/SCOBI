@@ -13,14 +13,19 @@ To install `SCOBI` you can use Hadley Wickham's `devtools` package. To install a
 install.packages("devtools")
 library(devtools)
 ```
-NOTE: To use `devtools`, you may also have to download and install Rtools. The latest version on Rtools can be found at
+NOTE: To use `devtools`, you may also have to download and install Rtools (although you shouldn't). The latest version on Rtools can be found at
 https://cran.r-project.org/bin/windows/Rtools/
 
 Once `devtools` is successfully installed, use the following to install SCOBI:
 ```
 devtools::install_github("mackerman44/SCOBI")
 ```
-If you are interested in making contributions, consider getting a GitHub account, fork this repository, modify, and send a pull request.
+Alternatively, Bryce Oldemeyer has a GitHub account and maintains an up-to-date fork of the SCOBI repository. Therefore, SCOBI can
+also be downloaded using:
+```
+devtools::install_github("Boldemeyer/SCOBI")
+```
+If you are interested in making contributions to SCOBI, consider getting a GitHub account, fork this repository, clone to a local directory, modify, and send me a pull request. I can then review any changes and merge.
 
 For further information, see:
 
