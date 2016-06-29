@@ -20,7 +20,7 @@
 #' @param writeThetas would you like to write the thetas to a .csv? These are the \code{B} bootstrap estimates of the Rear, Primary, and
 #' Secondary (if set) categories.
 #' @param writeOutput would you like to write output files?
-#' @param pbtExpand should only be used is \code{RTYPE} is set to "H" or "HNC". If this is an analysis of PBT assigned fish, would you like to expand
+#' @param pbtExpand should only be used if \code{RTYPE} is set to "H" or "HNC". If this is an analysis of PBT assigned fish, would you like to expand
 #' the frequencies within each time strata by the PBT tag rates defines in \code{pbtRates}? H stock proportions within each strata will then be
 #' calculated using the expanded frequencies.
 #' @param pbtRates if \code{pbtExpand = TRUE, SCOBI()} expects a .csv file containing the PBT tag rates for any H stock that occurs in
