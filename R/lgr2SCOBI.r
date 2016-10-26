@@ -25,7 +25,7 @@ lgr2SCOBI <- function(input = NULL, species = "chnk", exportFile = NULL)
   if(is.character(input) == TRUE) { rawData <- read.table(file = input, header = TRUE, sep = ",", na.strings = c("","NA"), comment.char = "")
   } else { rawData <- input }
   data   <- subset(rawData, select = c("WeekNumber","CollectionDate","SpawnYear","MasterID","BioSamplesID","SRR","LGDMarkAD","LGDFLmm","GenSex",
-                                       "GenStock","GenStockProb","BioScaleFinalAge","GenParentHatchery","GenBY","BiosamplesValid","LGDValid",
+                                       "GenStock","GenStockProb","BioScaleFinalAge","GenPBT_ByHat","GenPBT_RGroup","GenParentHatchery","GenBY","BiosamplesValid","LGDValid",
                                        "LGDNumPIT"))
 
   # CREATE REAR COLUMN TO POPULATE WITH W, H, or HNC
